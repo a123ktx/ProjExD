@@ -1,9 +1,9 @@
 import random
 import random
 global a, b, c, alpha
-a = 9
-b = 2
-c = 3
+syuturyoku = 9
+kesson = 2
+chance = 3
 alpha = 26
 
 def shutudai(alpha):
@@ -16,7 +16,7 @@ def shutudai(alpha):
     for w in lst:
         print(f"対象文字:{w}")
     delst = []
-    for i in range(b):
+    for i in range(kesson):
         D = lst.pop()
         delst.append(D)
     print(f"欠損文字:{delst}")
@@ -34,16 +34,8 @@ def kaitou(seikai):
 
 if __name__ == "__main__":
     C = 0
-    while C != c:
+    while C != chance:
         A = shutudai()
         B = kaitou(A)
         if B == 4:
             C += 1
-
-
-    
-
-
-
-
-
