@@ -1,6 +1,5 @@
 import random
-import random
-global a, b, c, alpha
+global syuturyoku, kesson, chance, alpha
 syuturyoku = 9
 kesson = 2
 chance = 3
