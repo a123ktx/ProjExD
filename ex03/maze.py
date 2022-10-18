@@ -32,8 +32,10 @@ def main_proc():
         mx += 1
     elif key == "Left":
         mx -= 1
+    #移動させる座標が床ならこうかとんを移動させる
     if maze_list[my][mx] != 1:
         cx, cy = mx*100+50, my*100+50
+    #移動させる座標が壁なら、mx,myの数値を元に戻す
     else:
         if key == "Up":
             my +=1
@@ -44,16 +46,19 @@ def main_proc():
         elif key == "Left":
             mx += 1
     canv.coords("tori", cx, cy)
+    #ゲームが続いているかどうか確認する
     if game_C == True:
         root.after(100, main_proc)
 
 def count_down():#カウントダウンする関数を定義する
     global tmr, game_C
     tmr -= 1
+    #0までカウントするようにする
     if tmr > -1:
         canv.create_rectangle(0, 0, 150, 95, outline ="white", fill="white")
         canv.create_text(100,50, text=tmr, font=("", 80))
         root.after(500, count_down)
+    #0以下になったら終了させる
     elif tmr < 0:
         canv.create_text(800, 400, text="GAME OVER", font=("",80), fill="red")
         game_C = False #gameを終了させる
