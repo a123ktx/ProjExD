@@ -3,8 +3,13 @@ import maze_maker as mm
 
 #key_down関数を定義する
 def key_down(event):
-    global key, tmr_S
+    global key, tmr_S, mv_tori
     key = event.keysym
+    #こうかとんの歩数を表記する
+    mv_tori += 1
+    canv.create_rectangle(750, 0, 150, 95, outline ="white", fill="white")
+    canv.create_text(450,50, text=f"歩いた数:{mv_tori}", font=("", 80))
+    #ゲームを開始するif文
     if tmr_S == False:
         root.after(100, count_down)
         tmr_S = True
@@ -45,12 +50,13 @@ def main_proc():
 def count_down():#カウントダウンする関数を定義する
     global tmr, game_C
     tmr -= 1
-    canv.create_rectangle(0, 0, 150, 100, outline ="white", fill="white")
-    canv.create_text(100,50, text=tmr, font=("", 80))
-    root.after(1000, count_down)
-    if tmr < 0:
+    if tmr > -1:
+        canv.create_rectangle(0, 0, 150, 95, outline ="white", fill="white")
+        canv.create_text(100,50, text=tmr, font=("", 80))
+        root.after(500, count_down)
+    elif tmr < 0:
         canv.create_text(800, 400, text="GAME OVER", font=("",80), fill="red")
-        game_C = False
+        game_C = False #gameを終了させる
         
 
 
@@ -63,6 +69,9 @@ if __name__ == "__main__":
 
     #ゲームが続いているのか確認する
     game_C = True
+
+    #こうかとんが移動した回数を初期化する
+    mv_tori = 0
 
     #ウィンドウを生成する
     root = tk.Tk()
