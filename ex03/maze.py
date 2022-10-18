@@ -59,8 +59,6 @@ def count_down():#カウントダウンする関数を定義する
         game_C = False #gameを終了させる
         
 
-
-
 if __name__ == "__main__":
     #タイマーの初期値を設定する
     tmr = 30
@@ -106,6 +104,5 @@ if __name__ == "__main__":
 
     #main_procを呼び出し、常時起動するようにする
     main_proc()
-
 
     root.mainloop()
