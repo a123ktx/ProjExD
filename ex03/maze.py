@@ -1,4 +1,5 @@
 import tkinter as tk
+import maze_maker as mm
 
 #key_down関数を定義する
 def key_down(event):
@@ -49,6 +50,10 @@ if __name__ == "__main__":
 
     #main_procを呼び出し、常時起動するようにする
     main_proc()
+
+    #mmモジュールの関数を呼び出す
+    maze_list = mm.make_maze(15, 9)
+    maze_show = mm.show_maze(canv, maze_list)
 
 
     root.mainloop()
