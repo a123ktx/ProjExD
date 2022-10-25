@@ -69,7 +69,7 @@ def main():
         #跳ね返る度に爆弾が加速する機能を追加する
         yoko, tate = check_bound(bomb_rct, scrn_rct)
         if yoko == 1:
-            vx *= 1
+            vx *= 1 
         elif yoko == -1:
             vx *= yoko*1.1
         if tate == 1:
