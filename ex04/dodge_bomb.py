@@ -11,7 +11,6 @@ def check_bound(obj_rct, scr_rct):#objはこうかとんと爆弾のrct、scrは
     return yoko, tate
 
 def main():
-    global game_C, tmr
     py.display.set_caption("逃げろ！こうかとん")
     scrn_sfc = py.display.set_mode((1600, 900))
     scrn_rct = scrn_sfc.get_rect()
