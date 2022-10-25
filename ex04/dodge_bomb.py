@@ -27,7 +27,7 @@ def main():
 
     #練習5
     bomb_sfc = py.Surface((20, 20)) #空のSurface
-    bomb_sfc.set_colorkey((0, 0, 0))
+    bomb_sfc.set_colorkey((0, 0, 0)) #黒い部分を透明にする
     py.draw.circle(bomb_sfc, (255, 0, 0), (10, 10), 10) #円を描く
     bomb_rct = bomb_sfc.get_rect()
     bomb_rct.centerx = randint(tori_rct.right, scrn_rct.width)#ランダム変更に合わせて、こうかとんとボムが重ならないよう調整
