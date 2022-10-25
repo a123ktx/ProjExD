@@ -1,5 +1,6 @@
 import pygame as py
 import sys
+from random import randint
 
 
 def main():
@@ -14,6 +15,14 @@ def main():
     tori_sfc = py.transform.rotozoom(tori_sfc, 0, 2.0)
     tori_rct = tori_sfc.get_rect()
     tori_rct.center = 900, 400
+
+    #練習5
+    bomb_sfc = py.Surface((20, 20)) #空のSurface
+    bomb_sfc.set_colorkey((0, 0, 0))
+    py.draw.circle(bomb_sfc, (255, 0, 0), (10, 10), 10) #円を描く
+    bomb_rct = bomb_sfc.get_rect()
+    bomb_rct.centerx = randint(0, 1600)
+    bomb_rct.centery = randint(0, 900)
 
     clock = py.time.Clock()
     while True:
@@ -30,6 +39,8 @@ def main():
         if key_states[py.K_RIGHT]: tori_rct.centerx += 1 #こうかとんが横に-1
 
         scrn_sfc.blit(tori_sfc, tori_rct)
+
+        scrn_sfc.blit(bomb_sfc, bomb_rct)
         py.display.update()
         clock.tick(1000)              #1000fpsを刻む
 
