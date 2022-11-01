@@ -67,7 +67,7 @@ class Enemy:
         self.sfc = pg.transform.rotozoom(sfc, 0, zoom)
         self.rct = self.sfc.get_rect()
         self.rct.centerx = 1500
-        self.rct.centery = randint(0, scr.rct.height)
+        self.rct.centery = randint(30, scr.rct.height-30)
         self.vy = speed
 
     #敵を貼り付けるインスタンスメソッド
@@ -85,13 +85,12 @@ class Enemy:
 class Bomb:
 #ボムに関するクラス
 
-    def __init__(self, colour, radius,  speed, scr):
+    def __init__(self, colour, radius,  speed, enemy):
         self.sfc = pg.Surface((radius*2, radius*2)) # 空のSurface
         self.sfc.set_colorkey((0, 0, 0)) # 四隅の黒い部分を透過させる
         pg.draw.circle(self.sfc, colour, (radius, radius), radius) # 爆弾用の円を描く
         self.rct = self.sfc.get_rect()
-        self.rct.centerx = randint(0, scr.rct.width)
-        self.rct.centery = randint(0, scr.rct.height)
+        self.rct.center = enemy.rct.center
         self.vx, self.vy = speed
 
     #ボムを貼り付けるインスタンスメソッド
@@ -105,6 +104,26 @@ class Bomb:
         self.vx *= yoko
         self.vy *= tate
         self.blit(scr)
+
+
+class Time:
+    #ゲーム内タイマーを管理するクラス
+    def __init__(self, tmr):
+        self.tmr = tmr
+
+    def update(self): #タイマーを進めるイニシャライザ
+        self.tmr += 1
+
+class Game_over():
+    #スコアを表示するクラス
+
+    def __init__(self):
+        self.font = pg.font.Font(None, 55)
+        self.text = self.font.render("GAME_OVER", True, (255, 0, 0))
+    
+
+    def blit(self, scr):
+        scr.sfc.blit(self.text, [scr.rct.centerx/4, scr.rct.centery/4])
 
 
 
@@ -128,11 +147,25 @@ def check_bound(obj_rct, scr_rct):
 def main():
     #スクリーンを作る
     scr = Screen("負けるな！こうかとん", (1600, 900), "ex04/haikei.jpg")
+
     #プレイヤーのこうかとんを設置する
     player = Player("fig/2.png", 2.0 , (300, scr.rct.height/2))
+
     #敵のこうかとんを設置する
     enemy = Enemy("fig/6.png", 2.0, +1, scr)
-    bom = Bomb((255, 0, 0), 10, (+1, +1), scr)
+
+    bom = Bomb((255, 0, 0), 10, (+1, +1), enemy)
+
+    #タイマーを設定する
+    game = Time(0)
+
+    game_over = Time(0)
+
+    end = Game_over()
+
+
+    #ゲームが続いていることを表す
+    G_done = True
 
     clock = pg.time.Clock()
 
@@ -142,14 +175,30 @@ def main():
             if event.type == pg.QUIT:
                 return
 
-        player.update(scr)
+        if G_done:
+            player.update(scr)
 
-        enemy.update(scr)
+            enemy.update(scr)
 
-        bom.update(scr)
+            bom.update(scr)
 
-        if player.rct.colliderect(bom.rct): # こうかとんrctが爆弾rctと重なったら
+            game.update()
+
+        if player.rct.colliderect(bom.rct) or player.rct.colliderect(enemy.rct): 
+            # こうかとんrctが爆弾rctと重なったら
+            score = Score(game.tmr)
+            G_done = False#ゲームを終わらせる
+
+        if not G_done:
+            bom2 = Bomb((255, 0, 0), 10, (+1, +1), player)
+            player.blit(scr)
+            bom2.blit(scr)
+            end.blit(scr) #Gameoverを表示する
+            game_over.update()
+
+        if game_over.tmr > 1000:
             return
+
 
         pg.display.update() #練習2
         clock.tick(1000)
