@@ -118,12 +118,12 @@ class Game_over():
     #スコアを表示するクラス
 
     def __init__(self):
-        self.font = pg.font.Font(None, 55)
+        self.font = pg.font.Font(None, 110)
         self.text = self.font.render("GAME_OVER", True, (255, 0, 0))
     
 
     def blit(self, scr):
-        scr.sfc.blit(self.text, [scr.rct.centerx/4, scr.rct.centery/4])
+        scr.sfc.blit(self.text, [scr.rct.centerx/2, scr.rct.centery/2])
 
 
 
@@ -186,7 +186,6 @@ def main():
 
         if player.rct.colliderect(bom.rct) or player.rct.colliderect(enemy.rct): 
             # こうかとんrctが爆弾rctと重なったら
-            score = Score(game.tmr)
             G_done = False#ゲームを終わらせる
 
         if not G_done:
