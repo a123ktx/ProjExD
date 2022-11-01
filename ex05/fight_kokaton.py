@@ -157,9 +157,9 @@ def main():
 
     bom = Bomb((255, 0, 0), 10, (+1, +1), enemy)
 
-    bom2 = Bomb((255, 0, 0), 10, (+1, +1), enemy)
+    bom2 = Bomb((255, 0, 0), 10, (+1.5, +1.5), enemy)
 
-    bom3 = Bomb((255, 0, 0), 10, (+1, +1), enemy)
+    bom3 = Bomb((255, 0, 0), 10, (+2, +2), enemy)
 
     #タイマーを設定する
     game = Time(0)
@@ -191,6 +191,7 @@ def main():
 
             if game.tmr > 2000:
                 bom2.update(scr)
+                
 
             if game.tmr > 4500:
                 bom3.update(scr)
