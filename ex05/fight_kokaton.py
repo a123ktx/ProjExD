@@ -113,9 +113,10 @@ class Time:
 
     def update(self): #タイマーを進めるイニシャライザ
         self.tmr += 1
+        
 
 class Game_over():
-    #スコアを表示するクラス
+    #Game_overを表示するクラス
 
     def __init__(self):
         self.font = pg.font.Font(None, 110)
@@ -123,7 +124,7 @@ class Game_over():
     
 
     def blit(self, scr):
-        scr.sfc.blit(self.text, [scr.rct.centerx/2, scr.rct.centery/2])
+        scr.sfc.blit(self.text, [scr.rct.centerx/2, scr.rct.centery/2]) 
 
 
 
@@ -156,6 +157,10 @@ def main():
 
     bom = Bomb((255, 0, 0), 10, (+1, +1), enemy)
 
+    bom2 = Bomb((255, 0, 0), 10, (+1, +1), enemy)
+
+    bom3 = Bomb((255, 0, 0), 10, (+1, +1), enemy)
+
     #タイマーを設定する
     game = Time(0)
 
@@ -184,7 +189,17 @@ def main():
 
             game.update()
 
-        if player.rct.colliderect(bom.rct) or player.rct.colliderect(enemy.rct): 
+            if game.tmr > 2000:
+                bom2.update(scr)
+
+            if game.tmr > 4500:
+                bom3.update(scr)
+
+        if (player.rct.colliderect(bom.rct) 
+            or player.rct.colliderect(bom2.rct)
+            or player.rct.colliderect(bom3.rct)
+            or player.rct.colliderect(enemy.rct)
+            ): 
             # こうかとんrctが爆弾rctと重なったら
             G_done = False#ゲームを終わらせる
 
