@@ -127,8 +127,6 @@ class Game_over():
         scr.sfc.blit(self.text, [scr.rct.centerx/2, scr.rct.centery/2]) 
 
 
-
-
 def check_bound(obj_rct, scr_rct):
     """
     obj_rct：こうかとんrct，または，爆弾rct
